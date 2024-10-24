@@ -1,0 +1,18 @@
+/* nrf52833dk_nrf52833.overlay */
+/{
+    rotary_encoder {
+        compatible = "gpio-keys";
+        rotary_a {
+            gpios = <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+            label = "Rotary A (CLK)";
+        };
+        rotary_b {
+            gpios = <&gpio0 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+            label = "Rotary B (DT)";
+        };
+        rotary_button {
+            gpios = <&gpio0 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+            label = "Rotary Button";
+        };
+    };
+};
