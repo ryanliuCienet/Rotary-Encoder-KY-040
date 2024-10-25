@@ -28,10 +28,10 @@ static void rotary_changed(const struct device *dev, struct gpio_callback *cb, u
     int b_state = gpio_pin_get_dt(&rot_b);
 
     if (a_state != last_a_state) {
-        if (b_state != a_state) {
+        if (b_state != a_state) { // 順時鐘轉的話，a的state會比b早發生變化，故在a發生變化時，跟b的state會不一樣
             counter++;
             printk("Clockwise rotation, counter: %d\n", counter);
-        } else {
+        } else { // 反之，逆時針轉的話，b的state會先變，故在a發生變化時，會變得跟b的state一樣
             counter--;
             printk("Counter-clockwise rotation, counter: %d\n", counter);
         }
@@ -90,7 +90,7 @@ void main(void)
         return;
     }
 
-    // 初始化回調
+    // 初始化回調 gpio_init_callback(gpio_callback數據結構, gpio_callback handler回調函式, 監聽的引腳掩碼)
     gpio_init_callback(&rot_a_cb_data, rotary_changed, BIT(rot_a.pin));
     gpio_init_callback(&rot_btn_cb_data, button_pressed, BIT(rot_btn.pin));
 
